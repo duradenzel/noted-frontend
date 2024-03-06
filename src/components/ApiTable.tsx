@@ -1,13 +1,27 @@
 import React, { useState, useEffect } from 'react';
+import {
+  Table,
+  TableBody,
+  TableCaption,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table"
+
+interface Spell {
+  name: string;
+  level: string;
+  school: string;
+}
 
 interface ApiTableProps {
   endpoint: string;
 }
 
 const ApiTable: React.FC<ApiTableProps> = ({ endpoint }) => {
-  const [data, setData] = useState<any>(null); 
+  const [data, setData] = useState<{ results: Spell[] } | null>(null); 
   const baseUrl = "http://localhost:5065/api/";
-  console.log(data);
 
   useEffect(() => {
     fetch(`${baseUrl}${endpoint}`)
@@ -18,8 +32,27 @@ const ApiTable: React.FC<ApiTableProps> = ({ endpoint }) => {
 
   return (
     <div>
-      <h1>React Frontend</h1>
-      <p>Data from API Gateway: {data ? data.message : 'Loading...'}</p>
+      {data && data.results && data.results.length > 0 && (
+        <Table>
+          <TableCaption>Spells</TableCaption>
+          <TableHeader>
+            <TableRow>
+              <TableHead className="w-[100px]">Name</TableHead>
+              <TableHead>Level</TableHead>
+              <TableHead className="text-right">School</TableHead>
+            </TableRow>
+          </TableHeader>
+          <TableBody>
+            {data.results.map((spell, index) => (
+              <TableRow key={index}>
+                <TableCell className="font-medium">{spell.name}</TableCell>
+                <TableCell>{spell.level}</TableCell>
+                <TableCell className="text-right">{spell.school}</TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      )}
     </div>
   );
 };
