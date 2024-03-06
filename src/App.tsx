@@ -1,4 +1,5 @@
-import ApiTable from './components/ApiTable';
+import ResourceTable from './components/SpellTable';
+import ResourceTableTabs from './components/ResourceTableTabs';
 import './App.css'
 
 function App() {
@@ -6,7 +7,8 @@ function App() {
 
   return (
     <>
-      <ApiTable endpoint={"dnd/spells"}/>
+      <ResourceTableTabs/>
+    
     </>
   )
 }

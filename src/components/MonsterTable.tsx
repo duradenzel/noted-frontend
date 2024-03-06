@@ -9,18 +9,19 @@ import {
   TableRow,
 } from "@/components/ui/table"
 
-interface Spell {
+interface Monster {
   name: string;
-  level: string;
-  school: string;
+  size: string;
+  type: string;
+  cr: number;
 }
 
-interface ApiTableProps {
+interface TableProps {
   endpoint: string;
 }
 
-const ApiTable: React.FC<ApiTableProps> = ({ endpoint }) => {
-  const [data, setData] = useState<{ results: Spell[] } | null>(null); 
+const MonsterTable: React.FC<TableProps> = ({ endpoint }) => {
+  const [data, setData] = useState<{ results: Monster[] } | null>(null); 
   const baseUrl = "http://localhost:5065/api/";
 
   useEffect(() => {
@@ -33,21 +34,23 @@ const ApiTable: React.FC<ApiTableProps> = ({ endpoint }) => {
   return (
     <div>
       {data && data.results && data.results.length > 0 && (
-        <Table>
-          <TableCaption>Spells</TableCaption>
+        <Table className='w-full'>
+          <TableCaption>Monsters</TableCaption>
           <TableHeader>
             <TableRow>
               <TableHead className="w-[100px]">Name</TableHead>
-              <TableHead>Level</TableHead>
-              <TableHead className="text-right">School</TableHead>
+              <TableHead>Size</TableHead>
+              <TableHead>Type</TableHead>
+              <TableHead className="text-right">CR</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
-            {data.results.map((spell, index) => (
+            {data.results.map((monster, index) => (
               <TableRow key={index}>
-                <TableCell className="font-medium">{spell.name}</TableCell>
-                <TableCell>{spell.level}</TableCell>
-                <TableCell className="text-right">{spell.school}</TableCell>
+                <TableCell className="font-medium">{monster.name}</TableCell>
+                <TableCell>{monster.size}</TableCell>
+                <TableCell>{monster.type}</TableCell>
+                <TableCell className="text-right">{monster.cr}</TableCell>
               </TableRow>
             ))}
           </TableBody>
@@ -57,4 +60,4 @@ const ApiTable: React.FC<ApiTableProps> = ({ endpoint }) => {
   );
 };
 
-export default ApiTable;
+export default MonsterTable;
