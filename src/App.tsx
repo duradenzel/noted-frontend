@@ -1,14 +1,11 @@
-import ResourceTable from './components/SpellTable';
-import ResourceTableTabs from './components/ResourceTableTabs';
 import './App.css'
+import LoginPage from './components/LoginPage';
 
 function App() {
- 
 
   return (
     <>
-      <ResourceTableTabs/>
-    
+      <LoginPage/>
     </>
   )
 }
