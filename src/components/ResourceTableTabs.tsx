@@ -13,10 +13,10 @@ const ResourceTableTabs = () => {
     <TabsTrigger value="monsters">Monsters</TabsTrigger>
   </TabsList>
   <TabsContent value="spells">List Of Spells
-  <SpellTable endpoint='dnd/spells'/>
+  <SpellTable endpoint='spells'/>
   </TabsContent>
   <TabsContent value="monsters">List Of Monsters
-  <MonsterTable endpoint='dnd/monsters'/>
+  <MonsterTable endpoint='monsters'/>
   </TabsContent>
 </Tabs>
   )

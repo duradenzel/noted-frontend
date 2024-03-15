@@ -66,6 +66,8 @@
   }
 }
  
+#root{height: 100vh}
+
 @layer base {
   * {
     @apply border-border;

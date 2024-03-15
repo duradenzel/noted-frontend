@@ -51,7 +51,7 @@ const LoginForm = () => {
 
     function onSubmit(values: z.infer<typeof formSchema>) {
         console.log(values)
-        const baseUrl = "http://localhost:5065/api/";
+        const baseUrl = "http://localhost:5225/auth/";
         postLoginData(baseUrl, "login", values).then(response => console.log(response))
     }
 

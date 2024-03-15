@@ -21,7 +21,7 @@ interface TableProps {
 
 const SpellTable: React.FC<TableProps> = ({ endpoint }) => {
   const [data, setData] = useState<{ results: Spell[] } | null>(null); 
-  const baseUrl = "http://localhost:5065/api/";
+   const baseUrl = "http://localhost:5010/api/";
 
   useEffect(() => {
     fetch(`${baseUrl}${endpoint}`)
