@@ -12,8 +12,8 @@ export default function Sidebar({ children }: { children: ReactNode }) {
   
   return (
     <aside className="h-screen">
-      <nav className="h-full flex flex-col bg-white border-r shadow-sm">
-        <div className="p-4 pb-2 flex justify-between items-center">
+      <nav className="h-full flex flex-col bg-bgcolor-0 border-r shadow-sm">
+        <div className={`p-4 pb-2 flex ${expanded ? "justify-between" : "justify-center"} items-center`}>
           <img
             src="https://img.logoipsum.com/243.svg"
             className={`overflow-hidden transition-all ${
@@ -23,7 +23,7 @@ export default function Sidebar({ children }: { children: ReactNode }) {
           />
           <button
             onClick={() => setExpanded((curr) => !curr)}
-            className="p-1.5 rounded-lg bg-gray-50 hover:bg-gray-100"
+            className="p-1.5 rounded-lg bg-accent-50 hover:bg-accent-100 text-accent-700"
           >
             {expanded ? <ChevronFirst /> : <ChevronLast />}
           </button>
@@ -46,8 +46,8 @@ export default function Sidebar({ children }: { children: ReactNode }) {
           `}
           >
             <div className="leading-4">
-              <h4 className="font-semibold">John Doe</h4>
-              <span className="text-xs text-gray-600">johndoe@gmail.com</span>
+              <h4 className="font-semibold text-text-0">Name</h4>
+              <span className="text-xs text-text-0">email@gmail.com</span>
             </div>
             <MoreVertical size={20} />
           </div>
@@ -73,8 +73,8 @@ export function SidebarItem({ icon, text, active, alert }: {
         transition-colors group
         ${
           active
-            ? "bg-gradient-to-tr from-indigo-200 to-indigo-100 text-indigo-800"
-            : "hover:bg-indigo-50 text-gray-600"
+            ? "bg-gradient-to-tr from-primary-200 to-primary-100 text-primary-800"
+            : "hover:bg-primary-50 text-primary-700"
         }
     `}
     >
@@ -88,7 +88,7 @@ export function SidebarItem({ icon, text, active, alert }: {
       </span>
       {alert && (
         <div
-          className={`absolute right-2 w-2 h-2 rounded bg-indigo-400 ${
+          className={`absolute right-2 w-2 h-2 rounded bg-accent-400 ${
             expanded ? "" : "top-2"
           }`}
         />
@@ -98,7 +98,7 @@ export function SidebarItem({ icon, text, active, alert }: {
         <div
           className={`
           absolute left-full rounded-md px-2 py-1 ml-6
-          bg-indigo-100 text-indigo-800 text-sm
+          bg-primary-100 text-primary-800 text-sm
           invisible opacity-20 -translate-x-3 transition-all
           group-hover:visible group-hover:opacity-100 group-hover:translate-x-0
       `}
