@@ -9,9 +9,9 @@ const LoginPage = () => {
     <>   
     <div className='flex flex-row bg-cover'>
         <img src={img} alt="" className='w-2-5 h-screen'/>
-        <LoginForm/>
+        <LoginButton/>
     </div>
-    <LoginButton/>
+    
     </>
   )
 }
