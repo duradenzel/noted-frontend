@@ -1,6 +1,12 @@
 import React, { useContext } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
 import { MoreVertical } from "lucide-react";
+import {
+    Popover,
+    PopoverContent,
+    PopoverTrigger,
+  } from "@/components/ui/popover"
+import LogoutButton from "./Logout";
 
 
 interface ProfileProps {
@@ -26,7 +32,12 @@ console.log(expanded)
             <span className="text-xs text-text-0">{isAuthenticated ? user?.email : "email@gmail.com"}</span>
           </div>
         )}
-        <MoreVertical size={20} />
+        <Popover>
+  <PopoverTrigger><MoreVertical size={20} />
+  </PopoverTrigger>
+  <PopoverContent className="w-auto h-auto"><LogoutButton/></PopoverContent>
+</Popover>
+        
       </div>
     </div>
   );

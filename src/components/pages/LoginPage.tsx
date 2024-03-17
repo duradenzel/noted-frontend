@@ -1,7 +1,7 @@
 import React from 'react'
 import LoginForm from '../LoginForm'
 import img from '../../assets/login-image.jpg'
-import LoginButton from '../Auth0LoginButton'
+import LoginButton from '../LoginButton'
 
 
 const LoginPage = () => {
