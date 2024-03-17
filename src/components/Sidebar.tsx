@@ -1,5 +1,6 @@
 import React, { createContext, useContext, useState, ReactNode } from "react";
 import { MoreVertical, ChevronLast, ChevronFirst } from "lucide-react";
+import SidebarProfile from './SidebarProfile'
 
 interface SidebarContextType {
   expanded: boolean;
@@ -33,25 +34,7 @@ export default function Sidebar({ children }: { children: ReactNode }) {
           <ul className="flex-1 px-3">{children}</ul>
         </SidebarContext.Provider>
 
-        <div className="border-t flex p-3">
-          <img
-            src="https://ui-avatars.com/api/?background=c7d2fe&color=3730a3&bold=true"
-            alt=""
-            className="w-10 h-10 rounded-md"
-          />
-          <div
-            className={`
-              flex justify-between items-center
-              overflow-hidden transition-all ${expanded ? "w-52 ml-3" : "w-0"}
-          `}
-          >
-            <div className="leading-4">
-              <h4 className="font-semibold text-text-0">Name</h4>
-              <span className="text-xs text-text-0">email@gmail.com</span>
-            </div>
-            <MoreVertical size={20} />
-          </div>
-        </div>
+     <SidebarProfile expanded={expanded}/>
       </nav>
     </aside>
   );
@@ -64,7 +47,7 @@ export function SidebarItem({ icon, text, active, alert }: {
   alert?: boolean;
 }) {
   const { expanded } = useContext(SidebarContext) as SidebarContextType;
-  
+
   return (
     <li
       className={`
