@@ -15,13 +15,9 @@ export default function Sidebar({ children }: { children: ReactNode }) {
     <aside className="h-screen">
       <nav className="h-full flex flex-col bg-bgcolor-0 border-r shadow-sm">
         <div className={`p-4 pb-2 flex ${expanded ? "justify-between" : "justify-center"} items-center`}>
-          <img
-            src="https://img.logoipsum.com/243.svg"
-            className={`overflow-hidden transition-all ${
-              expanded ? "w-32" : "w-0"
-            }`}
-            alt=""
-          />
+          <h1 className={`${
+          expanded ? "w-52 ml-3 text-2xl" : "w-0 invisible"
+        }`}>Noted</h1>
           <button
             onClick={() => setExpanded((curr) => !curr)}
             className="p-1.5 rounded-lg bg-accent-50 hover:bg-accent-100 text-accent-700"
