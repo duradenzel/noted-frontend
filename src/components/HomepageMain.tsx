@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
 import { User } from '@auth0/auth0-react'; 
 import CampaignCard from './CampaignCard';
+import CampaignDialog from './CampaignDialog';
+import BackendConnect from './BackendConnect';
 
 interface Campaign {
   id: number;
@@ -17,26 +18,38 @@ interface UserProps {
 
 const HomePageMain: React.FC<UserProps> = ({ user }) => {
   const [userCampaigns, setUserCampaigns] = useState<Campaign[]>([]); 
-  console.log(userCampaigns);
+  const [loading, setLoading] = useState<boolean>(true);
+
   useEffect(() => {
     if (user && user.email) {
-      axios.get(`http://localhost:5170/api/campaign/get?email=${user.email}`)
-        .then((response) => {
-          setUserCampaigns(response.data.campaigns); 
-        })
-        .catch(function (error) {
+      BackendConnect({
+        url: `http://localhost:5170/api/campaign/get?email=${user.email}`,
+        method: 'GET',
+        onSuccess: (data: any) => {
+          setUserCampaigns(data.campaigns); 
+          setLoading(false); 
+        },
+        onError: (error: any) => {
           console.log(error);
-        });
+          setLoading(false); 
+        }
+      });
     }
-  }, [user]); 
+  }, [user]);
 
   return (
     <div className='m-2 p-2'>
-      <h1 className='m-2 text-xl text-text-0 font-bold'>My Campaigns</h1>   
+      <div className='flex flex-row justify-between'>
+        <h1 className='m-2 text-xl text-text-0 font-bold'>My Campaigns</h1>   
+        <CampaignDialog/>
+      </div>
       <div className=' flex flex-row justify-between'>
-        {userCampaigns.map((campaign, i) => (
-          <CampaignCard key={i} campaign={campaign}/>
-        ))}
+        {loading ? (<p>Loading...</p>) 
+        : (
+          userCampaigns.map((campaign, i) => (
+            <CampaignCard key={i} campaign={campaign}/>
+          ))
+        )}
       </div>
     </div>
   );
