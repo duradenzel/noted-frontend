@@ -23,10 +23,11 @@ const HomePageMain: React.FC<UserProps> = ({ user }) => {
   useEffect(() => {
     if (user && user.email) {
       BackendConnect({
-        url: `http://localhost:5170/api/campaign/get?email=${user.email}`,
+        url: `http://localhost:5170/campaigns?email=${user.email}`,
         method: 'GET',
         onSuccess: (data: any) => {
-          setUserCampaigns(data.campaigns); 
+          console.log(data);
+          setUserCampaigns(data.data.campaigns); 
           setLoading(false); 
         },
         onError: (error: any) => {

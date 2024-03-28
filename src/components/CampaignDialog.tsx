@@ -11,16 +11,22 @@ import {
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
 import { Label } from "./ui/label";
+import BackendConnect from "./BackendConnect";
+import { User, useAuth0 } from "@auth0/auth0-react";
 
 interface CampaignFormData {
-  name: string;
+  title: string;
   description: string;
+  maxplayers: number;
 }
 
 const CampaignDialog: React.FC = () => {
+  const { user } = useAuth0();
+
   const [formData, setFormData] = useState<CampaignFormData>({
-    name: "",
+    title: "",
     description: "",
+    maxplayers: 0
   });
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -33,10 +39,19 @@ const CampaignDialog: React.FC = () => {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    // Now formData contains the values of inputs, you can send this data to your backend
     console.log(formData);
-    // Reset form data if needed
-    setFormData({ name: "", description: "" });
+    setFormData({ title: "", description: "" , maxplayers: 0});
+    BackendConnect({
+      url: `http://localhost:5170/campaigns?email=${user?.email}`,
+      method: 'POST',
+      data: formData,
+      onSuccess: (data: any) => {
+       console.log(data);
+      },
+      onError: (error: any) => {
+       console.log(error)
+      }
+    });
   };
 
   return (
@@ -53,14 +68,14 @@ const CampaignDialog: React.FC = () => {
 
             <div className="grid gap-4 py-4">
               <div className="grid grid-cols-4 items-center gap-4">
-                <Label htmlFor="name" className="text-right">
-                  Name
+                <Label htmlFor="title" className="text-right">
+                  Title
                 </Label>
                 <Input
-                  id="name"
+                  id="title"
                   placeholder="Campaign Name"
                   className="col-span-3"
-                  value={formData.name}
+                  value={formData.title}
                   onChange={handleInputChange}
                 />
               </div>
@@ -74,6 +89,18 @@ const CampaignDialog: React.FC = () => {
                   placeholder="Campaign Description"
                   className="col-span-3"
                   value={formData.description}
+                  onChange={handleInputChange}
+                />
+              </div>
+              <div className="grid grid-cols-4 items-center gap-4">
+                <Label htmlFor="maxplayers" className="text-right">
+                  Players
+                </Label>
+                <Input
+                  id="maxplayers"
+                  placeholder="Players"
+                  className="col-span-1"
+                  value={formData.maxplayers}
                   onChange={handleInputChange}
                 />
               </div>
