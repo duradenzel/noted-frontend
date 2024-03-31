@@ -15,7 +15,6 @@ interface ProfileProps {
 
 const Profile: React.FC<ProfileProps> = ({expanded}) => {
   const { user, isAuthenticated, isLoading } = useAuth0();
-console.log(expanded)
   return (
     <div className="border-t flex p-3">
       <img

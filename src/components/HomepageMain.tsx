@@ -5,7 +5,7 @@ import CampaignDialog from './CampaignDialog';
 import BackendConnect from './BackendConnect';
 
 interface Campaign {
-  id: number;
+  campaignId: number;
   title: string;
   description: string;
   dmId: number;
@@ -26,7 +26,6 @@ const HomePageMain: React.FC<UserProps> = ({ user }) => {
         url: `http://localhost:5170/campaigns?email=${user.email}`,
         method: 'GET',
         onSuccess: (data: any) => {
-          console.log(data);
           setUserCampaigns(data.data.campaigns); 
           setLoading(false); 
         },
@@ -44,10 +43,10 @@ const HomePageMain: React.FC<UserProps> = ({ user }) => {
         <h1 className='m-2 text-xl text-text-0 font-bold'>My Campaigns</h1>   
         <CampaignDialog/>
       </div>
-      <div className=' flex flex-row justify-between'>
+      <div className=''>
         {loading ? (<p>Loading...</p>) 
         : (
-          userCampaigns.map((campaign, i) => (
+          userCampaigns?.map((campaign, i) => (
             <CampaignCard key={i} campaign={campaign}/>
           ))
         )}

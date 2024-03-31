@@ -1,37 +1,44 @@
-import React from 'react'
+import React from 'react';
+import { Link } from 'react-router-dom';
 import {
     Card,
     CardContent,
     CardDescription,
     CardHeader,
     CardTitle,
-  } from "@/components/ui/card"
-  
-  
+} from "@/components/ui/card";
 
-  interface Campaign {
-    id: number;
+interface Campaign {
+    campaignId: number;
     title: string;
     description: string;
     dmId: number;
     maxPlayers: number;
-  }
+}
 
-  interface CampaignCardProps{
-    campaign: Campaign
-  }
-  const CampaignCard: React.FC<CampaignCardProps> = ({campaign}) => {
+interface CampaignCardProps {
+    campaign: Campaign;
+}
+
+const CampaignCard: React.FC<CampaignCardProps> = ({ campaign }) => {
+
+  console.log(campaign)
     return (
-      <Card className='bg-bgcolor-0 text-text-0'>
-        <CardHeader>
-          <CardTitle>{campaign.title}</CardTitle>
-          <CardDescription>{campaign.description}</CardDescription>
-        </CardHeader>
-        <CardContent>
-          <p>DM : {campaign.dmId}</p>
-        </CardContent>
-      </Card>
+        <Link to={`/campaigns/${campaign.campaignId}`} className="text-decoration-none">
+            <Card className='bg-bgcolor-0 text-text-0 m-2'>
+                <CardHeader>
+                    <CardTitle>{campaign.title}</CardTitle>
+                    <CardDescription>
+                        {campaign.description.length > 150 ? (campaign.description.slice(0, 150) + "...") : (campaign.description)}
+                    </CardDescription>
+                </CardHeader>
+                <CardContent>
+                    <p>DM: {campaign.dmId}</p>
+                </CardContent>
+            </Card>
+        </Link>
     );
-  };
-  
-  export default CampaignCard
+    
+};
+
+export default CampaignCard;
