@@ -4,6 +4,7 @@ import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar';
 import BackendConnect from './BackendConnect';
 import { RiEditFill } from "react-icons/ri";
 import { MdDelete } from "react-icons/md";
+import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from './ui/alert-dialog';
 
 interface HeaderProps {
   campaign: Campaign;
@@ -76,9 +77,27 @@ const CampaignHeader: React.FC<HeaderProps> = ({ campaign }) => {
               onChange={handleInputChange}
             />
             {isChanged() && (
-              <button className='bg-primary-500 text-white rounded h-6 w-6 items-center ml-2 ' onClick={handleEditCampaign}><RiEditFill className='w-4/5 h-4/5 m-auto'/></button>
+              <div className='bg-primary-500 text-white rounded h-6 w-6 items-center ml-2 flex justify-center' onClick={handleEditCampaign}>
+              <RiEditFill className=''/>
+            </div>
+            
             )}
-            <button className='bg-accent-500 text-white rounded h-6 w-6 items-center ml-2 '><MdDelete className='w-4/5 h-4/5 m-auto'/></button>
+          <AlertDialog>
+        <AlertDialogTrigger><div className='bg-accent-500 text-white rounded h-6 w-6 items-center ml-2  flex justify-center '><MdDelete className=''/></div></AlertDialogTrigger>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
+            <AlertDialogDescription>
+              This action cannot be undone. This will permanently delete your campaign.
+              
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel>Cancel</AlertDialogCancel>
+            <AlertDialogAction type='button' onClick={handleDeleteCampaign}>Continue</AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
           </div>
           <textarea
             name="description"
@@ -89,6 +108,8 @@ const CampaignHeader: React.FC<HeaderProps> = ({ campaign }) => {
         </div>
       </div>
 
+
+      
       <div className="w-full md:w-3/5 mx-auto">
         <div className="mb-4 ">
           <h2 className="text-lg font-semibold mb-2">Created By</h2>
