@@ -71,7 +71,7 @@ const CampaignHeader: React.FC<HeaderProps> = ({ campaign }) => {
   const isChanged = editedCampaign.title !== campaign.title || editedCampaign.description !== campaign.description;
 
   return (
-    <div className="text-text-700 py-12 px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-start w-full">
+    <div className="text-text-700 py-12  flex flex-col md:flex-row items-start w-full">
       <div className="w-full mb-4 md:mb-0 md:mr-4">
         <div className='mb-5 border-bottom-2 w-full'>
           {DefaultImage && <img src={DefaultImage} alt="Campaign Banner" className="w-full h-[13.75rem] object-cover" />}
