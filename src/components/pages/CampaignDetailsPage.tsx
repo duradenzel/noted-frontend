@@ -34,29 +34,6 @@ const CampaignDetailsPage: React.FC = () => {
   }, [campaignId]);
 
 
-  const dummySessions = [
-    {
-      sessionId: 1,
-      campaignId: 1,
-      date: "May 10, 2023",
-      title: "Session 1: The Journey Begins",
-      summary: "The adventurers meet in the town of Oakvale and embark on their first quest to retrieve a stolen artifact.",
-    },
-    {
-      sessionId: 2,
-      campaignId: 1,
-      date: "May 17, 2023",
-      title: "Session 2: Into the Goblin Cave",
-      summary: "The party delves into the dark depths of the goblin cave, facing traps and enemies along the way.",
-    },
-    {
-      sessionId: 3,
-      campaignId: 1,
-      date: "May 24, 2023",
-      title: "Session 3: The Ancient Ruins",
-      summary: "Exploring the ancient ruins, the adventurers uncover a hidden chamber and confront a powerful necromancer.",
-    },
-  ];
 
 
   
@@ -67,7 +44,7 @@ const CampaignDetailsPage: React.FC = () => {
         <div className="overflow-auto h-full flex-1 w-full px-5 ">
           {campaign && <CampaignHeader campaign={campaign}/>}
           <Separator className='bg-text-100'/>
-        <Timeline sessions={dummySessions}/>
+          {campaign && <Timeline campaignId={campaign?.campaignId}/>}
         </div>
       </div>
     </div>
