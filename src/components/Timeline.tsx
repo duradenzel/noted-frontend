@@ -1,35 +1,43 @@
 import React, { useEffect, useState } from 'react';
-import BackendConnect from './BackendConnect';
+import { Session, SessionResponse} from '@/types';
+import axios, { AxiosError } from 'axios';
 
-interface Session {
-  sessionId: number;
-  campaignId: number;
-  date: string;
-  title: string;
-  summary: string;
-}
-
-interface TimelineProps {
+export interface TimelineProps {
   campaignId: number;
 }
 
 const Timeline: React.FC<TimelineProps> = ({campaignId}) => {
 
     const [sessions, setSessions] = useState<Session[]>([]);
-    useEffect(() => {
-      BackendConnect({
-        url: `http://localhost:5170/sessions?campaignId=${campaignId}`,
-        method: 'GET',
-        onSuccess: (data: any) => {
-            console.log(data)
-          setSessions(data.data.sessions);
-        },
-        onError: (error: any) => {
-          console.log(error);
-        }
-      });
-    }, [campaignId]);
+    const [error, setError] = useState<string | null>(null);
 
+
+    useEffect(() => {
+      const fetchData = async () => {
+        try {
+          const response = await axios.get<SessionResponse>(`http://localhost:5170/sessions?campaignId=${campaignId}`);
+          setSessions(response.data.sessions);
+        } catch (error) {
+          const axiosError = error as AxiosError;
+          setError(`Error fetching users: ${axiosError.message}`);
+          
+        }
+      };
+  
+      fetchData();
+      // BackendConnect({
+      //   url: `http://localhost:5170/sessions?campaignId=${campaignId}`,
+      //   method: 'GET',
+      //   onSuccess: (data: any) => {
+      //       console.log(data)
+      //     setSessions(data.data.sessions);
+      //   },
+      //   onError: (error: string) => {
+      //     console.log(error);
+      //   }
+      // });
+    }, [campaignId]);
+    console.log(error);
     const formatDate = (dateString: string): string => {
         const date = new Date(dateString);
         const month = date.toLocaleString('en-US', { month: 'short' });

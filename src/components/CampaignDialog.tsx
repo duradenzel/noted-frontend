@@ -11,9 +11,9 @@ import {
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
 import { Label } from "./ui/label";
-import BackendConnect from "./BackendConnect";
-import { User, useAuth0 } from "@auth0/auth0-react";
-
+import axios, { AxiosError } from "axios";
+import { Campaign } from "@/types";
+import {useAuth0 } from "@auth0/auth0-react";
 interface CampaignFormData {
   title: string;
   description: string;
@@ -22,6 +22,7 @@ interface CampaignFormData {
 
 const CampaignDialog: React.FC = () => {
   const { user } = useAuth0();
+  const [error, setError] = useState<string | null>(null);
 
   const [formData, setFormData] = useState<CampaignFormData>({
     title: "",
@@ -37,23 +38,20 @@ const CampaignDialog: React.FC = () => {
     }));
   };
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     console.log(formData);
     setFormData({ title: "", description: "" , maxplayers: 0});
-    BackendConnect({
-      url: `http://localhost:5170/campaigns?email=${user?.email}`,
-      method: 'POST',
-      data: formData,
-      onSuccess: (data: any) => {
-       console.log(data);
-      },
-      onError: (error: any) => {
-       console.log(error)
-      }
-    });
+    try {
+      await axios.post<Campaign>(`http://localhost:5170/campaigns?email=${user?.email}`, formData);
+      window.location.replace("/")
+    } catch (error) {
+      const axiosError = error as AxiosError;
+      setError(`Error fetching users: ${axiosError.message}`);
+    }
+  
   };
-
+console.log(error)
   return (
     <Dialog>
       <DialogTrigger asChild>

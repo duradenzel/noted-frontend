@@ -1,4 +1,3 @@
-import React from 'react'
 import { SidebarLayout } from '../SidebarLayout'
 import { useAuth0 } from '@auth0/auth0-react';
 import HomePageMain from '../HomepageMain';
