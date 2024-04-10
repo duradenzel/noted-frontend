@@ -10,7 +10,6 @@ import { Button } from "@/components/ui/button"
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -39,7 +38,7 @@ const LoginForm = () => {
         password: "",
         },
     })
-    async function postLoginData(baseUrl: string, endpoint: string, data: Object){
+    async function postLoginData(baseUrl: string, endpoint: string, data: object){
       const response = await fetch(`${baseUrl}${endpoint}`, {
         method: "POST",
         headers: {'Accept': 'application/json', 'Content-type': 'application/json'},

@@ -26,16 +26,6 @@ const CampaignDetailsPage: React.FC = () => {
     };
 
     fetchData();
-    // BackendConnect({
-    //   url: `http://localhost:5170/campaigns/${campaignId}`,
-    //   method: 'GET',
-    //   onSuccess: (data: any) => {
-    //     setCampaign(data.data);
-    //   },
-    //   onError: (error: string) => {
-    //     console.log(error);
-    //   }
-    // });
   }, [campaignId]);
   console.log(error);
   return (

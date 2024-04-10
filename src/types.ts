@@ -12,7 +12,7 @@ export interface Campaign {
     description: string;
     dmId: number;
     maxPlayers: number;
-  }
+}
 
 export interface SessionResponse{
     sessions: Session[];

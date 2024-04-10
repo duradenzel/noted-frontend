@@ -25,17 +25,7 @@ const Timeline: React.FC<TimelineProps> = ({campaignId}) => {
       };
   
       fetchData();
-      // BackendConnect({
-      //   url: `http://localhost:5170/sessions?campaignId=${campaignId}`,
-      //   method: 'GET',
-      //   onSuccess: (data: any) => {
-      //       console.log(data)
-      //     setSessions(data.data.sessions);
-      //   },
-      //   onError: (error: string) => {
-      //     console.log(error);
-      //   }
-      // });
+      
     }, [campaignId]);
     console.log(error);
     const formatDate = (dateString: string): string => {
