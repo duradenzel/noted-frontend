@@ -7,16 +7,17 @@ export interface Session {
 }
 
 export interface Campaign {
-  campaignId: number;
-  title: string;
-  description: string;
-  dmId: number;
-  maxPlayers: number;
+    campaignId: number;
+    title: string;
+    description: string;
+    dmId: number;
+    maxPlayers: number;
 }
 
-export interface SessionResponse {
-  sessions: Session[];
+export interface SessionResponse{
+    sessions: Session[];
 }
+
 
 export interface CampaignResponse {
   campaigns: Campaign[];
