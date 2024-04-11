@@ -7,7 +7,7 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "@/components/ui/table"
+} from '@/components/ui/table';
 
 interface Monster {
   name: string;
@@ -21,20 +21,20 @@ interface TableProps {
 }
 
 const MonsterTable: React.FC<TableProps> = ({ endpoint }) => {
-  const [data, setData] = useState<{ results: Monster[] } | null>(null); 
-  const baseUrl = "http://localhost:5065/api/";
+  const [data, setData] = useState<{ results: Monster[] } | null>(null);
+  const baseUrl = 'http://localhost:5065/api/';
 
   useEffect(() => {
     fetch(`${baseUrl}${endpoint}`)
-      .then(response => response.json())
-      .then(result => setData(result))
-      .catch(error => console.error('Error fetching data:', error));
+      .then((response) => response.json())
+      .then((result) => setData(result))
+      .catch((error) => console.error('Error fetching data:', error));
   }, [endpoint]);
 
   return (
     <div>
       {data && data.results && data.results.length > 0 && (
-        <Table className='w-full'>
+        <Table className="w-full">
           <TableCaption>Monsters</TableCaption>
           <TableHeader>
             <TableRow>

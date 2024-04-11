@@ -3,10 +3,16 @@ import React from 'react';
 interface CampaignInformation {
   title: string;
   description: string;
-  onChange: (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
+  onChange: (
+    event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+  ) => void;
 }
 
-const CampaignInformation: React.FC<CampaignInformation> = ({ title, description, onChange }) => {
+const CampaignInformation: React.FC<CampaignInformation> = ({
+  title,
+  description,
+  onChange,
+}) => {
   return (
     <div>
       <input

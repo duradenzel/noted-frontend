@@ -1,6 +1,6 @@
-import React, { createContext, useContext, useState, ReactNode } from "react";
-import { ChevronLast, ChevronFirst } from "lucide-react";
-import SidebarProfile from './SidebarProfile'
+import React, { createContext, useContext, useState, ReactNode } from 'react';
+import { ChevronLast, ChevronFirst } from 'lucide-react';
+import SidebarProfile from './SidebarProfile';
 
 interface SidebarContextType {
   expanded: boolean;
@@ -10,14 +10,18 @@ const SidebarContext = createContext<SidebarContextType | undefined>(undefined);
 
 export default function Sidebar({ children }: { children: ReactNode }) {
   const [expanded, setExpanded] = useState<boolean>(true);
-  
+
   return (
     <aside className="h-screen">
       <nav className="h-full flex flex-col bg-bgcolor-0 border-r shadow-sm">
-        <div className={`p-4 pb-2 flex ${expanded ? "justify-between" : "justify-center"} items-center`}>
-          <h1 className={`${
-          expanded ? "w-52 ml-3 text-2xl" : "w-0 invisible"
-        }`}>Noted</h1>
+        <div
+          className={`p-4 pb-2 flex ${expanded ? 'justify-between' : 'justify-center'} items-center`}
+        >
+          <h1
+            className={`${expanded ? 'w-52 ml-3 text-2xl' : 'w-0 invisible'}`}
+          >
+            Noted
+          </h1>
           <button
             onClick={() => setExpanded((curr) => !curr)}
             className="p-1.5 rounded-lg bg-accent-50 hover:bg-accent-100 text-accent-700"
@@ -30,13 +34,18 @@ export default function Sidebar({ children }: { children: ReactNode }) {
           <ul className="flex-1 px-3">{children}</ul>
         </SidebarContext.Provider>
 
-     <SidebarProfile expanded={expanded}/>
+        <SidebarProfile expanded={expanded} />
       </nav>
     </aside>
   );
 }
 
-export function SidebarItem({ icon, text, active, alert }: { 
+export function SidebarItem({
+  icon,
+  text,
+  active,
+  alert,
+}: {
   icon: ReactNode;
   text: string;
   active?: boolean;
@@ -52,15 +61,15 @@ export function SidebarItem({ icon, text, active, alert }: {
         transition-colors group
         ${
           active
-            ? "bg-gradient-to-tr from-primary-200 to-primary-100 text-primary-800"
-            : "hover:bg-primary-50 text-primary-700"
+            ? 'bg-gradient-to-tr from-primary-200 to-primary-100 text-primary-800'
+            : 'hover:bg-primary-50 text-primary-700'
         }
     `}
     >
       {icon}
       <span
         className={`overflow-hidden transition-all ${
-          expanded ? "w-52 ml-3" : "w-0"
+          expanded ? 'w-52 ml-3' : 'w-0'
         }`}
       >
         {text}
@@ -68,7 +77,7 @@ export function SidebarItem({ icon, text, active, alert }: {
       {alert && (
         <div
           className={`absolute right-2 w-2 h-2 rounded bg-accent-400 ${
-            expanded ? "" : "top-2"
+            expanded ? '' : 'top-2'
           }`}
         />
       )}

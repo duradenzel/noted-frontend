@@ -7,7 +7,7 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "@/components/ui/table"
+} from '@/components/ui/table';
 
 interface Spell {
   name: string;
@@ -20,20 +20,20 @@ interface TableProps {
 }
 
 const SpellTable: React.FC<TableProps> = ({ endpoint }) => {
-  const [data, setData] = useState<{ results: Spell[] } | null>(null); 
-   const baseUrl = "http://localhost:5010/api/";
+  const [data, setData] = useState<{ results: Spell[] } | null>(null);
+  const baseUrl = 'http://localhost:5010/api/';
 
   useEffect(() => {
     fetch(`${baseUrl}${endpoint}`)
-      .then(response => response.json())
-      .then(result => setData(result))
-      .catch(error => console.error('Error fetching data:', error));
+      .then((response) => response.json())
+      .then((result) => setData(result))
+      .catch((error) => console.error('Error fetching data:', error));
   }, [endpoint]);
 
   return (
     <div>
       {data && data.results && data.results.length > 0 && (
-        <Table className='w-full'>
+        <Table className="w-full">
           <TableCaption>Spells</TableCaption>
           <TableHeader>
             <TableRow>

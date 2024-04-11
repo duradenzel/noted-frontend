@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState } from 'react';
 import {
   Dialog,
   DialogContent,
@@ -6,14 +6,14 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "@/components/ui/dialog";
+} from '@/components/ui/dialog';
 
-import { Button } from "./ui/button";
-import { Input } from "./ui/input";
-import { Label } from "./ui/label";
-import axios, { AxiosError } from "axios";
-import { Campaign } from "@/types";
-import {useAuth0 } from "@auth0/auth0-react";
+import { Button } from './ui/button';
+import { Input } from './ui/input';
+import { Label } from './ui/label';
+import axios, { AxiosError } from 'axios';
+import { Campaign } from '@/types';
+import { useAuth0 } from '@auth0/auth0-react';
 
 interface CampaignFormData {
   title: string;
@@ -26,12 +26,14 @@ const CampaignDialog: React.FC = () => {
   const [error, setError] = useState<string | null>(null);
 
   const [formData, setFormData] = useState<CampaignFormData>({
-    title: "",
-    description: "",
-    maxplayers: 0
+    title: '',
+    description: '',
+    maxplayers: 0,
   });
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const handleInputChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+  ) => {
     const { id, value } = e.target;
     setFormData((prevFormData) => ({
       ...prevFormData,
@@ -42,22 +44,26 @@ const CampaignDialog: React.FC = () => {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     console.log(formData);
-    setFormData({ title: "", description: "" , maxplayers: 0});
+    setFormData({ title: '', description: '', maxplayers: 0 });
     try {
-      await axios.post<Campaign>(`http://localhost:5170/campaigns?email=${user?.email}`, formData);
-      window.location.replace("/")
+      await axios.post<Campaign>(
+        `http://localhost:5170/campaigns?email=${user?.email}`,
+        formData,
+      );
+      window.location.replace('/');
     } catch (error) {
       const axiosError = error as AxiosError;
       setError(`Error fetching users: ${axiosError.message}`);
     }
-  
   };
-console.log(error)
+  console.log(error);
   return (
     <Dialog>
       <DialogTrigger asChild>
         <Button color="">
-          <h1 className="bg-primary-400 text-white p-1  rounded-md">+ Create New</h1>
+          <h1 className="bg-primary-400 text-white p-1  rounded-md">
+            + Create New
+          </h1>
         </Button>
       </DialogTrigger>
       <DialogContent>
