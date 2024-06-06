@@ -1,20 +1,30 @@
 import './App.css';
+import ApiPage from './components/pages/ApiPage';
 import CampaignDetailsPage from './components/pages/CampaignDetailsPage';
 import HomePage from './components/pages/HomePage';
 import LoginPage from './components/pages/LoginPage';
-<<<<<<< HEAD
-import { useAuth0 } from '@auth0/auth0-react';
-import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
-=======
 import { useAuth0 } from "@auth0/auth0-react";
 import { BrowserRouter, Navigate, Route, Routes} from 'react-router-dom';
->>>>>>> 54feba7 (more eslint fixing)
+//import { HubConnectionBuilder } from '@microsoft/signalr';
 
 function App() {
   const { isAuthenticated, isLoading } = useAuth0();
   if (isLoading) {
     return <div>Loading...</div>;
   }
+  
+  // const connection = new HubConnectionBuilder()
+  // .withUrl('http://localhost:5170/NotificationHub') 
+  // .build();
+  
+  // connection.start()
+  // .then(() => console.log('Connected to SignalR hub'))
+  // .catch(err => console.error('Error connecting to hub:', err));
+  
+  // connection.on('ReceiveMessage', message => {
+  //     console.log('Received message:', message);
+      
+  // });
 
   return (
     <>
@@ -30,6 +40,7 @@ function App() {
           />
 
           <Route path="/login" element={<LoginPage />} />
+          <Route path="/apipage" element={<ApiPage />} />
         </Routes>
       </BrowserRouter>
     </>

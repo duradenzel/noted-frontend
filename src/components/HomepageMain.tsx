@@ -4,6 +4,8 @@ import CampaignCard from './CampaignCard';
 import CampaignDialog from './CampaignDialog';
 import axios, { AxiosError } from 'axios';
 import { CampaignResponse } from '@/types';
+import NotificationComponent from './NotificationComponent';
+
 
 interface Campaign {
   campaignId: number;
@@ -21,6 +23,9 @@ const HomePageMain: React.FC<UserProps> = ({ user }) => {
   const [userCampaigns, setUserCampaigns] = useState<Campaign[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
+
+
+
 
   useEffect(() => {
     if (user && user.email) {
@@ -59,6 +64,7 @@ const HomePageMain: React.FC<UserProps> = ({ user }) => {
           ))
         )}
       </div>
+      <NotificationComponent/>
     </div>
   );
 };

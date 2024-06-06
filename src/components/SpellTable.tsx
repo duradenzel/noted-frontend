@@ -23,6 +23,8 @@ const SpellTable: React.FC<TableProps> = ({ endpoint }) => {
   const [data, setData] = useState<{ results: Spell[] } | null>(null);
   const baseUrl = 'http://localhost:5010/api/';
 
+
+  console.log(data)
   useEffect(() => {
     fetch(`${baseUrl}${endpoint}`)
       .then((response) => response.json())

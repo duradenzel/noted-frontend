@@ -15,16 +15,6 @@ import axios, { AxiosError } from 'axios';
 import { Campaign } from '@/types';
 import { useAuth0 } from '@auth0/auth0-react';
 
-<<<<<<< HEAD
-=======
-import { Button } from "./ui/button";
-import { Input } from "./ui/input";
-import { Label } from "./ui/label";
-import axios, { AxiosError } from "axios";
-import { Campaign } from "@/types";
-import {useAuth0 } from "@auth0/auth0-react";
-
->>>>>>> 54feba7 (more eslint fixing)
 interface CampaignFormData {
   title: string;
   description: string;

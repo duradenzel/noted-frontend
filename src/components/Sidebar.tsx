@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState, ReactNode } from 'react';
+import { createContext, useContext, useState, ReactNode } from 'react';
 import { ChevronLast, ChevronFirst } from 'lucide-react';
 import SidebarProfile from './SidebarProfile';
 

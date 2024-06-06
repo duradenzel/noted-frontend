@@ -36,19 +36,6 @@ const useCampaignLogic = (campaign: Campaign) => {
       const axiosError = error as AxiosError;
       setError(`Error fetching users: ${axiosError.message}`);
     }
-
-    // BackendConnect({
-    //   url: `${API_BASE_URL}${campaign.campaignId}`,
-    //   method: 'PUT',
-    //   data: editedCampaign,
-    //   onSuccess: () => {
-    //     console.log('Campaign updated successfully');
-    //     window.location.reload();
-    //   },
-    //   onError: (error: any) => {
-    //     console.error('Error updating campaign:', error);
-    //   }
-    // });
   }, [editedCampaign, campaign.campaignId]);
   console.log(error);
   const handleDeleteCampaign = useCallback(async () => {
@@ -61,17 +48,6 @@ const useCampaignLogic = (campaign: Campaign) => {
       const axiosError = error as AxiosError;
       setError(`Error fetching users: ${axiosError.message}`);
     }
-    // BackendConnect({
-    //   url: `${API_BASE_URL}${campaign.campaignId}`,
-    //   method: 'DELETE',
-    //   onSuccess: () => {
-    //     console.log('Campaign deleted successfully');
-    //     window.location.replace("/");
-    //   },
-    //   onError: (error: any) => {
-    //     console.error('Error deleting campaign:', error);
-    //   }
-    // });
   }, [campaign]);
 
   const handleInputChange = useCallback(

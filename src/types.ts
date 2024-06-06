@@ -26,3 +26,12 @@ export interface CampaignResponse {
 export interface ApiError {
   message: string;
 }
+
+
+export interface Notification {
+  message: string;
+}
+
+export interface NotificationHub {
+  ReceiveNotification: (message: Notification) => void;
+}

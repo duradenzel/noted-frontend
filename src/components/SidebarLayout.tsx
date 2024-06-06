@@ -1,4 +1,3 @@
-import React from 'react';
 import Sidebar, { SidebarItem } from './Sidebar';
 import { MdHistoryEdu } from 'react-icons/md';
 import { FaDragon } from 'react-icons/fa';

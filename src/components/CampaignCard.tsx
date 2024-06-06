@@ -27,7 +27,7 @@ const CampaignCard: React.FC<CampaignCardProps> = ({ campaign }) => {
       to={`/campaigns/${campaign.campaignId}`}
       className="text-decoration-none"
     >
-      <Card className="bg-bgcolor-0 text-text-0 m-2">
+      <Card className="campaign-card bg-bgcolor-0 text-text-0 m-2">
         <CardHeader>
           <CardTitle>{campaign.title}</CardTitle>
           <CardDescription>

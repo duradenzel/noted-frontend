@@ -22,7 +22,7 @@ interface TableProps {
 
 const MonsterTable: React.FC<TableProps> = ({ endpoint }) => {
   const [data, setData] = useState<{ results: Monster[] } | null>(null);
-  const baseUrl = 'http://localhost:5065/api/';
+  const baseUrl = 'http://localhost:5010/api/';
 
   useEffect(() => {
     fetch(`${baseUrl}${endpoint}`)
