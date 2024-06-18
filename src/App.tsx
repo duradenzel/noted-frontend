@@ -8,7 +8,8 @@ import { BrowserRouter, Navigate, Route, Routes} from 'react-router-dom';
 //import { HubConnectionBuilder } from '@microsoft/signalr';
 
 function App() {
-  const { isAuthenticated, isLoading } = useAuth0();
+  const { isAuthenticated, isLoading, user } = useAuth0();
+  console.log(user);
   if (isLoading) {
     return <div>Loading...</div>;
   }

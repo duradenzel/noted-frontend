@@ -95,9 +95,11 @@ const CampaignHeader: React.FC<HeaderProps> = ({ campaign }) => {
               title={editedCampaign.title}
               description={editedCampaign.description}
               onChange={handleInputChange}
+              
             />
             {isChanged && (
               <div
+                id='campaign-edit-button'
                 className="bg-primary-500 text-white rounded h-6 w-6 items-center  flex justify-center"
                 onClick={handleEditCampaign}
               >

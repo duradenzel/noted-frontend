@@ -22,7 +22,7 @@ const ConfirmationDialog: React.FC<ConfirmationDialogProps> = ({
   return (
     <AlertDialog>
       <AlertDialogTrigger>
-        <div className="bg-accent-500 text-white rounded h-6 w-6 items-center ml-2  flex justify-center ">
+        <div id='campaign-delete-button' className="bg-accent-500 text-white rounded h-6 w-6 items-center ml-2  flex justify-center ">
           <MdDelete className="" />
         </div>
       </AlertDialogTrigger>

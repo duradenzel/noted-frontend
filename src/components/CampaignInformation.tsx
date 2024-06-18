@@ -21,12 +21,14 @@ const CampaignInformation: React.FC<CampaignInformation> = ({
         className="text-3xl font-bold mb-2 w-full bg-bgcolor-50 "
         value={title}
         onChange={onChange}
+        id='campaign-title'
       />
       <textarea
         name="description"
         className="text-lg mb-4 w-full bg-bgcolor-50 h-auto min-h-64 resize-none "
         value={description}
         onChange={onChange}
+        id='campaign-description'
       />
     </div>
   );

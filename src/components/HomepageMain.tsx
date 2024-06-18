@@ -56,13 +56,11 @@ const HomePageMain: React.FC<UserProps> = ({ user }) => {
         <CampaignDialog />
       </div>
       <div className="">
-        {loading ? (
-          <p>Loading...</p>
-        ) : (
-          userCampaigns?.map((campaign, i) => (
-            <CampaignCard key={i} campaign={campaign} />
-          ))
-        )}
+        {loading ? 
+        (<p>Loading...</p>) 
+        : 
+        (userCampaigns.length > 0 ? userCampaigns?.map((campaign, i) => (<CampaignCard key={i} campaign={campaign} />)) : <p>You are not part of any campaigns</p>)
+        }
       </div>
       <NotificationComponent/>
     </div>

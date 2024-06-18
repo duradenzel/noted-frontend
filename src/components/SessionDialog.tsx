@@ -13,22 +13,28 @@ import { Input } from './ui/input';
 import { Label } from './ui/label';
 import axios, { AxiosError } from 'axios';
 import { Campaign } from '@/types';
-import { useAuth0 } from '@auth0/auth0-react';
 
-interface CampaignFormData {
+interface SessionFormData {
+  campaignId: number,
   title: string;
-  description: string;
-  maxplayers: number;
+  summary: string;
+  date: Date;
 }
 
-const CampaignDialog: React.FC = () => {
-  const { user } = useAuth0();
-  const [error, setError] = useState<string | null>(null);
+interface DialogProps{
+   campaignId: number;
+}
 
-  const [formData, setFormData] = useState<CampaignFormData>({
+
+const SessionDialog: React.FC<DialogProps> = ({campaignId}) => {
+  const [error, setError] = useState<string | null>(null);
+  const [open, setOpen] = useState(false);
+
+  const [formData, setFormData] = useState<SessionFormData>({
+    campaignId: campaignId,
     title: '',
-    description: '',
-    maxplayers: 0,
+    summary: '',
+    date: new Date(),
   });
 
   const handleInputChange = (
@@ -44,13 +50,13 @@ const CampaignDialog: React.FC = () => {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     console.log(formData);
-    setFormData({ title: '', description: '', maxplayers: 0 });
+    setFormData({campaignId, title: '', summary: '', date: new Date(Date.now()) });
     try {
       await axios.post<Campaign>(
-        `http://localhost:5170/campaigns?email=${user?.email}`,
+        `http://localhost:5170/sessions`,
         formData,
       );
-      window.location.replace('/');
+      setOpen(false);
     } catch (error) {
       const axiosError = error as AxiosError;
       setError(`Error fetching users: ${axiosError.message}`);
@@ -58,11 +64,11 @@ const CampaignDialog: React.FC = () => {
   };
   console.log(error);
   return (
-    <Dialog>
+    <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
         <Button color="" className='create-campaign'>
           <h1 className="bg-primary-400 text-white p-1  rounded-md">
-            + Create New
+            + New Session
           </h1>
         </Button>
       </DialogTrigger>
@@ -79,34 +85,34 @@ const CampaignDialog: React.FC = () => {
                 <Input
                   id="title"
                   type='text'
-                  placeholder="Campaign Name"
+                  placeholder="Session Title"
                   className="col-span-3"
                   value={formData.title}
                   onChange={handleInputChange}
                 />
               </div>
               <div className="grid grid-cols-4 items-center gap-4">
-                <Label htmlFor="description" className="text-right">
-                  Description
+                <Label htmlFor="summary" className="text-right">
+                  Summary
                 </Label>
                 <Input
-                  id="description"
+                  id="summary"
                   type="textarea"
-                  placeholder="Campaign Description"
+                  placeholder="What happened last time?"
                   className="col-span-3"
-                  value={formData.description}
+                  value={formData.summary}
                   onChange={handleInputChange}
                 />
               </div>
               <div className="grid grid-cols-4 items-center gap-4">
-                <Label htmlFor="maxplayers" className="text-right">
-                  Players
+                <Label htmlFor="date" className="text-right">
+                  Date
                 </Label>
                 <Input
-                  id="maxplayers"
-                  placeholder="Players"
+                  id="date"
+                  type='date'                
                   className="col-span-1"
-                  value={formData.maxplayers}
+                  value={formData.date.toString()}
                   onChange={handleInputChange}
                 />
               </div>
@@ -121,4 +127,4 @@ const CampaignDialog: React.FC = () => {
   );
 };
 
-export default CampaignDialog;
+export default SessionDialog;
