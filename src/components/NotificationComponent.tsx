@@ -12,7 +12,6 @@ const NotificationComponent: React.FC = () => {
             .build();
 
         connection.on("ReceiveNotification", (notification: Notification) => {
-            console.log(notification)
             setNotifications(notifications => [...notifications, notification]);
         });
 
@@ -23,8 +22,6 @@ const NotificationComponent: React.FC = () => {
             connection.stop();
         };
     }, [notifications]);
-
-    console.log(notifications)
 
     return (
         <div>
