@@ -52,12 +52,14 @@ const SessionComponent: React.FC<SessionComponentProps> = ({
             </div>
             <div className="flex space-x-2">
             <button
+              id='edit-session-button'
               onClick={handleEditClick}
               className="bg-primary-500 text-white rounded h-6 w-6 items-center flex justify-center"
               >
               <RiEditFill />
             </button>
             <button
+              id='delete-session-button'
               onClick={() => onDelete(session.sessionId)}
               className="bg-red-500 text-white rounded h-6 w-6 items-center flex justify-center"
               >
@@ -69,22 +71,23 @@ const SessionComponent: React.FC<SessionComponentProps> = ({
           {isEditing ? (
             <div>
               <textarea
+                id='session-summary-edit'
                 className="text-text-700 w-full bg-bgcolor-50 h-auto min-h-64 resize-none"
                 value={editedSummary}
                 onChange={handleSummaryChange}
                 />
               <div className="flex justify-end space-x-2">
-                <button onClick={handleSaveClick} className="bg-primary-500 text-white px-3 py-1 rounded">
+                <button id='session-save-button' onClick={handleSaveClick} className="bg-primary-500 text-white px-3 py-1 rounded">
                   Save
                 </button>
-                <button onClick={handleCancelClick} className="bg-gray-300 text-black px-3 py-1 rounded">
+                <button id='session-cancel-button' onClick={handleCancelClick} className="bg-gray-300 text-black px-3 py-1 rounded">
                   Cancel
                 </button>
               </div>
             </div>
           ) : (
-            <div className="text-text-700 text-left">
-              {session.summary.length > 100 ? session.summary.slice(0, 100) + "..." : session.summary}
+            <div id='session-summary' className="text-text-700 text-left">
+              {session.summary}
             </div>
           )}
 

@@ -18,7 +18,7 @@ import { useAuth0 } from '@auth0/auth0-react';
 interface CampaignFormData {
   title: string;
   description: string;
-  maxplayers: number;
+  maxplayers: string;  // Update to string to handle input changes
 }
 
 const CampaignDialog: React.FC = () => {
@@ -28,7 +28,7 @@ const CampaignDialog: React.FC = () => {
   const [formData, setFormData] = useState<CampaignFormData>({
     title: '',
     description: '',
-    maxplayers: 0,
+    maxplayers: '',
   });
 
   const handleInputChange = (
@@ -43,24 +43,39 @@ const CampaignDialog: React.FC = () => {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log(formData);
-    setFormData({ title: '', description: '', maxplayers: 0 });
+    
+    // Input validation
+    if (!formData.title || !formData.description || !formData.maxplayers) {
+      setError("All fields are required.");
+      return;
+    }
+
+    const maxplayersNumber = parseInt(formData.maxplayers, 10);
+    if (isNaN(maxplayersNumber) || maxplayersNumber < 1) {
+      setError("Max players must be at least 1.");
+      return;
+    }
+
+    setError(null);  // Clear previous errors
+
     try {
       await axios.post<Campaign>(
         `http://localhost:5170/campaigns?email=${user?.email}`,
-        formData,
+        { ...formData, maxplayers: maxplayersNumber }  // Convert maxplayers to number
       );
       window.location.replace('/');
     } catch (error) {
       const axiosError = error as AxiosError;
       setError(`Error fetching users: ${axiosError.message}`);
     }
+
+    setFormData({ title: '', description: '', maxplayers: '' });
   };
-  console.log(error);
+
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button color="" className='create-campaign'>
+        <Button color="" className='create-campaign' id='create-campaign-button'>
           <h1 className="bg-primary-400 text-white p-1  rounded-md">
             + Create New
           </h1>
@@ -70,7 +85,7 @@ const CampaignDialog: React.FC = () => {
         <form onSubmit={handleSubmit}>
           <DialogHeader>
             <DialogTitle>Create a new Campaign</DialogTitle>
-
+            {error && <p style={{ color: 'red' }}>{error}</p>}
             <div className="grid gap-4 py-4">
               <div className="grid grid-cols-4 items-center gap-4">
                 <Label htmlFor="title" className="text-right">

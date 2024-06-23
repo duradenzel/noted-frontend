@@ -5,7 +5,7 @@ const user = {username: secret.testuser.username, password: secret.testuser.pass
 const testCampaign = {
   title: 'TEST CAMPAIGN',
   description: 'This is a test campaign.',
-  maxPlayers: 1
+  maxPlayers: 3
 };
 describe('Campaign CRUD Operations', () => {
 
@@ -47,6 +47,8 @@ describe('Campaign CRUD Operations', () => {
     // Click the save button
     cy.get('#campaign-edit-button').click();
 
+    cy.wait(1000);
+
     // Wait for the save operation to complete
   });
 
@@ -68,5 +70,48 @@ describe('Campaign CRUD Operations', () => {
   it('Should verify the deleted campaign', () => {
     cy.contains('UPDATED TEST CAMPAIGN').should('not.exist');
 
+  });
+
+  it('Should show error when title is empty', () => {
+    cy.get('.create-campaign').click();
+    cy.get('#description').type(testCampaign.description);
+    cy.get('#maxplayers').clear().type(testCampaign.maxPlayers.toString());
+    cy.get('#submit-campaign').click();
+    cy.contains('All fields are required.').should('be.visible');
+  });
+
+  it('Should show error when description is empty', () => {
+    cy.get('.create-campaign').click();
+    cy.get('#title').type(testCampaign.title);
+    cy.get('#maxplayers').clear().type(testCampaign.maxPlayers.toString());
+    cy.get('#submit-campaign').click();
+    cy.contains('All fields are required.').should('be.visible');
+  });
+
+  it('Should show error when maxplayers is empty', () => {
+    cy.get('.create-campaign').click();
+    cy.get('#title').type(testCampaign.title);
+    cy.get('#description').type(testCampaign.description);
+    cy.get('#maxplayers').clear();
+    cy.get('#submit-campaign').click();
+    cy.contains('All fields are required.').should('be.visible');
+  });
+
+  it('Should show error when maxplayers is less than 1', () => {
+    cy.get('.create-campaign').click();
+    cy.get('#title').type(testCampaign.title);
+    cy.get('#description').type(testCampaign.description);
+    cy.get('#maxplayers').clear().type('0');
+    cy.get('#submit-campaign').click();
+    cy.contains('Max players must be at least 1.').should('be.visible');
+  });
+
+  it('Should show error when maxplayers is not a number', () => {
+    cy.get('.create-campaign').click();
+    cy.get('#title').type(testCampaign.title);
+    cy.get('#description').type(testCampaign.description);
+    cy.get('#maxplayers').clear().type('abc');
+    cy.get('#submit-campaign').click();
+    cy.contains('Max players must be at least 1.').should('be.visible');
   });
 });

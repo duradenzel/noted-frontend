@@ -31,16 +31,16 @@ const HomePageMain: React.FC = () => {
             `http://localhost:5170/campaigns?email=${user.email}`,
             {
               headers: {
-                Authorization: `Bearer ${token}`,
+                'Authorization': `Bearer ${token}`,
               },
             }
           );
-          console.log('API Response:', response.data.campaigns); // Log the response
+          console.log('API Response:', response.data.campaigns); 
           setUserCampaigns(response.data.campaigns);
           setLoading(false);
         } catch (error) {
           const axiosError = error as AxiosError;
-          console.error('API Request Error:', axiosError.response); // Log the error response
+          console.error('API Request Error:', axiosError.response);
           setError(`Error fetching campaigns: ${axiosError.message}`);
           setLoading(false);
         }

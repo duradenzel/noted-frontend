@@ -18,15 +18,14 @@ interface SessionFormData {
   campaignId: number,
   title: string;
   summary: string;
-  date: Date;
+  date: string;  // Update to string to handle input changes
 }
 
-interface DialogProps{
-   campaignId: number;
+interface DialogProps {
+  campaignId: number;
 }
 
-
-const SessionDialog: React.FC<DialogProps> = ({campaignId}) => {
+const SessionDialog: React.FC<DialogProps> = ({ campaignId }) => {
   const [error, setError] = useState<string | null>(null);
   const [open, setOpen] = useState(false);
 
@@ -34,7 +33,7 @@ const SessionDialog: React.FC<DialogProps> = ({campaignId}) => {
     campaignId: campaignId,
     title: '',
     summary: '',
-    date: new Date(),
+    date: '',
   });
 
   const handleInputChange = (
@@ -49,25 +48,34 @@ const SessionDialog: React.FC<DialogProps> = ({campaignId}) => {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log(formData);
-    setFormData({campaignId, title: '', summary: '', date: new Date(Date.now()) });
+    
+    // Input validation
+    if (!formData.title || !formData.summary || !formData.date) {
+      setError("All fields are required.");
+      return;
+    }
+
+    setError(null);  // Clear previous errors
+
     try {
       await axios.post<Campaign>(
         `http://localhost:5170/sessions`,
-        formData,
+        formData
       );
       setOpen(false);
     } catch (error) {
       const axiosError = error as AxiosError;
-      setError(`Error fetching users: ${axiosError.message}`);
+      setError(`Error creating session: ${axiosError.message}`);
     }
+
+    setFormData({ campaignId, title: '', summary: '', date: '' });
   };
-  console.log(error);
+
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
         <Button color="" className='create-campaign'>
-          <h1 className="bg-primary-400 text-white p-1  rounded-md">
+          <h1 id="create-session-button" className="bg-primary-400 text-white p-1 rounded-md">
             + New Session
           </h1>
         </Button>
@@ -75,8 +83,8 @@ const SessionDialog: React.FC<DialogProps> = ({campaignId}) => {
       <DialogContent>
         <form onSubmit={handleSubmit}>
           <DialogHeader>
-            <DialogTitle>Create a new Campaign</DialogTitle>
-
+            <DialogTitle>Create a new Session</DialogTitle>
+            {error && <p style={{ color: 'red' }}>{error}</p>}
             <div className="grid gap-4 py-4">
               <div className="grid grid-cols-4 items-center gap-4">
                 <Label htmlFor="title" className="text-right">
@@ -110,9 +118,9 @@ const SessionDialog: React.FC<DialogProps> = ({campaignId}) => {
                 </Label>
                 <Input
                   id="date"
-                  type='date'                
+                  type='date'
                   className="col-span-1"
-                  value={formData.date.toString()}
+                  value={formData.date}
                   onChange={handleInputChange}
                 />
               </div>
